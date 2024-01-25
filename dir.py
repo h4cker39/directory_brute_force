@@ -14,7 +14,7 @@ args = ap.parse_args()
 args2 = vars(ap.parse_args())
 print(args.status_code)
 filename = open(args2['file'], 'r')
-print(filename)
+print(args.url)
 
 Lines = filename.readlines()
 count = 0
