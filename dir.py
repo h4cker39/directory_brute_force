@@ -2,6 +2,12 @@ import requests
 import argparse
 import sys
 
+def checkFuzz(args):
+	fuzz = "FUZZ"
+	if fuzz not in args:
+		print("You must supply the FUZZ option inside the URL")
+		sys.exit()
+
 def list_of_strings(arg):
     return arg.split(',')
 
@@ -21,11 +27,11 @@ count = 0
 
 for line in Lines:
 	count += 1
-	x = requests.get(args.url + line.strip())
+	checkFuzz(args.url)
+	x = requests.get(args.url.replace("FUZZ",line.strip()))
 	if str(x.status_code) in args.status_code:
 			continue
-	
-	print((args.url + line.strip()) + " -- Code : " + str(x.status_code))
+	print(args.url.replace("FUZZ",line.strip()) + " -- Code : " + str(x.status_code))
 
 
 	
